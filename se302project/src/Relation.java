@@ -1,12 +1,16 @@
+import java.util.ArrayList;
+
 class Relation {
     private TreeRelationType type;
     private Person person1;
     private Person person2;
+    ArrayList<Person> children;
 
-    Relation(TreeRelationType type, Person person1, Person person2) {
+    Relation(TreeRelationType type, Person person1, Person person2, ArrayList<Person>children) {
         this.type = type;
         this.person1 = person1;
         this.person2 = person2;
+        this.children= children;
     }
 
     public TreeRelationType getType() {
@@ -32,7 +36,17 @@ class Relation {
     public void setPerson2(Person person2) {
         this.person2 = person2;
     }
+
+    public ArrayList<Person> getChildren(ArrayList<Person> children){
+        return children;
+    }
+    public void setChildren(ArrayList<Person> children) {
+        this.children = children;
+    }
+
 }
+
+
 
 enum TreeRelationType {
     SPOUSE, PARENT, CHILD
