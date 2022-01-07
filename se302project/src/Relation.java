@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Relation {
+class Relation {
     private TreeRelationType type;
     private RelationType relationtype;
     private Gender gender;
@@ -8,12 +8,6 @@ public class Relation {
     private Person Father;
     ArrayList<Person> children;
 
-    public Relation(TreeRelationType type, RelationType relationType, Gender gender, Person Mother, Person Father, ArrayList<Person>children) {
-        this.type = type;
-        this.Mother = Mother;
-        this.Father = Father;
-        this.children= children;
-    }
 
     public TreeRelationType getType() {
         return type;
@@ -58,19 +52,26 @@ public class Relation {
         this.gender = gender;
     }
 
+
+
 }
 
 
+    enum TreeRelationType {
+        SPOUSE, PARENT, CHILD
+    }
 
-enum TreeRelationType {
-    SPOUSE, PARENT, CHILD
-}
+    enum Gender {
+        MALE, FEMALE
+    }
 
-enum Gender {
-    MALE, FEMALE
-}
+    enum RelationType {
+        FATHER, MOTHER, BROTHER, SISTER, SON, DAUGHTER, COUSIN, GRANDMOTHER, GRANDFATHER, GRANDSON, GRANDDAUGHTER, AUNT, UNCLE, HUSBAND, WIFE
+    }
 
-enum RelationType {
-    FATHER, MOTHER, BROTHER, SISTER, SON, DAUGHTER, COUSIN, GRANDMOTHER, GRANDFATHER, GRANDSON, GRANDDAUGHTER, AUNT, UNCLE, HUSBAND, WIFE
-}
+
+
+
+
+
 

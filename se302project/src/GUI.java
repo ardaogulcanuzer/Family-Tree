@@ -14,7 +14,10 @@ public class GUI extends JFrame{
     JButton addButton,printButton;
     JTextField firstField, lastField, genderField;
     JTextArea textArea;
-    ArrayList<Person>people = new ArrayList<>();
+    Family family = new Family();
+    ArrayList<Person> list = family.getList();
+
+
 
     public GUI(){
         frame = new JFrame();
@@ -63,17 +66,18 @@ public class GUI extends JFrame{
 
             if(e.getSource() == printButton){
                 //textArea.append("Display Button pushed\n");
-                for(Person p: people){
+                for(Person p:list){
                     textArea.append(p+"\n");
                 }
+
             }
             else if(e.getSource() == addButton){
                 //textArea.append("Add Button pushed\n");
                 String firstName = firstField.getText();
                 String lastName = lastField.getText();
                 String gender = genderField.getText();
+                family.addPerson(firstName,lastName,1999,2010,gender);
 
-                people.add(new Person(firstName,lastName,2000,2022,gender));
                 firstField.setText("");
                 lastField.setText("");
             }

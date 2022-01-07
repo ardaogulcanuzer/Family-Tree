@@ -1,11 +1,8 @@
 public class Person {
-
-
-    private int birthYear, deathYear;
+    private int birthYear, deathYear, id;
     private String firstName, lastName, gender;
 
     //Setters and Getters
-
     //birthYear
     public int getbirthYear(){
         return this.birthYear;
@@ -42,14 +39,25 @@ public class Person {
         this.gender = newGender;
     }
 
-    public Person(String firstName,String lastName,int birthYear,int deathYear,String gender){
+    //id
+    public int getID(){
+        return this.id;
+    }
+    public void setID(int ID){
+        this.id = ID;
+    }
+
+
+    public Person(String firstName,String lastName,int birthYear,int deathYear,String gender,int id){
+            Relation relation = new Relation();
             this.firstName=firstName;
             this.lastName=lastName;
             this.gender=gender;
+            this.id=id;
+            Person mother=relation.getMother();
+            Person father=relation.getFather();
     }
     public String toString(){
-            return firstName+ " " + lastName;
+            return "İsim: "+firstName+ " " +"Soy İsim: "+ lastName+" "+"Cinsiyet: "+gender;
         }
-
-
 }
