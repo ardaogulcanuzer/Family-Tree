@@ -2,14 +2,16 @@ import java.util.ArrayList;
 
 class Relation {
     private TreeRelationType type;
-    private Person person1;
-    private Person person2;
+    private RelationType relationtype;
+    private Gender gender;
+    private Person Mother;
+    private Person Father;
     ArrayList<Person> children;
 
-    Relation(TreeRelationType type, Person person1, Person person2, ArrayList<Person>children) {
+    Relation(TreeRelationType type, RelationType relationType, Gender gender, Person Mother, Person Father, ArrayList<Person>children) {
         this.type = type;
-        this.person1 = person1;
-        this.person2 = person2;
+        this.Mother = Mother;
+        this.Father = Father;
         this.children= children;
     }
 
@@ -21,27 +23,27 @@ class Relation {
         this.type = type;
     }
 
-    public Person getPerson1() {
-        return person1;
+    public Person getMother() {
+        return Mother;
     }
 
-    public void setPerson1(Person person1) {
-        this.person1 = person1;
+    public void setMother(Person newMother) {
+        this.Mother = newMother;
     }
 
-    public Person getPerson2() {
-        return person2;
+    public Person getFather() {
+        return Father;
     }
 
-    public void setPerson2(Person person2) {
-        this.person2 = person2;
+    public void setFather(Person newFather) {
+        this.Father = newFather;
     }
 
     public ArrayList<Person> getChildren(ArrayList<Person> children){
         return children;
     }
-    public void setChildren(ArrayList<Person> children) {
-        this.children = children;
+    public void setChildren(ArrayList<Person> newChildren) {
+        this.children = newChildren;
     }
 
 }
