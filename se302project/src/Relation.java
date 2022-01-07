@@ -17,7 +17,7 @@ class Relation {
         this.type = type;
     }
 
-    public String getPerson1() {
+    //public String getPerson1() {
         return person1;
     }
 
