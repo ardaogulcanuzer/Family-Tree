@@ -1,0 +1,12 @@
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class Relation {
+
+    private String Person1;
+    private String Person2;
+
+
+
+
+}
