@@ -1,40 +1,24 @@
 public class Person {
 
 
-    private int ID, birthYear, deathYear, currentYear;
+    private int birthYear, deathYear;
     private String firstName, lastName, gender;
-
-    private Relation parents = new Relation();
 
     //Setters and Getters
 
-    //ID
-    public int getID(){
-        return this.ID;
-    }
-    public void setID(int newID){
-        this.ID = newID;
-    }
     //birthYear
     public int getbirthYear(){
         return this.birthYear;
     }
     public void setbirthYear(int newbirthYear){
-        this.ID = newbirthYear;
+        this.birthYear = newbirthYear;
     }
     //deathYear
     public int getdeathYear(){
         return this.deathYear;
     }
     public void setdeathYear(int newdeathYear){
-        this.ID = newdeathYear;
-    }
-    //currentYear
-    public int getCurrentYear(){
-        return this.currentYear;
-    }
-    public void setCurrentYear(int newcurrentYear){
-        this.currentYear = newcurrentYear;
+        this.deathYear = newdeathYear;
     }
     //firstName
     public String getFirstName(){
