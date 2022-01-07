@@ -3,6 +3,7 @@ class Relation {
     private Person person1;
     private Person person2;
 
+
     Relation(TreeRelationType type, Person person1, Person person2) {
         this.type = type;
         this.person1 = person1;

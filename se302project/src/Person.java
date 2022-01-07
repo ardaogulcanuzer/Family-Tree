@@ -4,7 +4,7 @@ public class Person {
     private int ID, birthYear, deathYear, currentYear;
     private String firstName, lastName, gender;
 
-    private Relation parents = new Relation();
+
 
     //Setters and Getters
 
