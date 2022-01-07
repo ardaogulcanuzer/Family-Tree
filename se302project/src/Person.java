@@ -42,9 +42,10 @@ public class Person {
         this.gender = newGender;
     }
 
-    public Person(String firstName,String lastName){
+    public Person(String firstName,String lastName,int birthYear,int deathYear,String gender){
             this.firstName=firstName;
             this.lastName=lastName;
+            this.gender=gender;
     }
     public String toString(){
             return firstName+ " " + lastName;
