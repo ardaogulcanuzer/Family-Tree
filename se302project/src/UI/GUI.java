@@ -4,10 +4,7 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.security.Key;
 import java.util.ArrayList;
 
@@ -27,6 +24,7 @@ public class GUI implements ActionListener {
     JLabel genderLabel;
     JLabel akrabaLabel;
     JButton addButton;
+    JButton removeButton;
     JComboBox cinsiyetBox;
     String[] cinsiyet = {"Kadın", "Erkek"};
     JComboBox akrabaBox;
@@ -92,9 +90,15 @@ public class GUI implements ActionListener {
 
 
         addButton = new JButton("Add Person");
-        addButton.setBounds(1670, 940, 200, 50);
+        addButton.setBounds(1510, 940, 180, 50);
         addButton.setFont(new Font("Verdana", Font.PLAIN, 18));
         addButton.addActionListener(this);
+
+        removeButton = new JButton("Remove Person");
+        removeButton.setBounds(1710, 940, 180, 50);
+        removeButton.setFont(new Font("Verdana", Font.PLAIN, 18));
+        removeButton.addActionListener(this);
+
 
         reference = new DefaultMutableTreeNode("Reference");
         FamilyTree = new JTree(reference);
@@ -148,6 +152,16 @@ public class GUI implements ActionListener {
             }
         });
 
+        FamilyTree.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) FamilyTree.getSelectionPath().getLastPathComponent();
+
+            }
+        });
+
+
+
 
         reference.add(parents);
         reference.add(spouse);
@@ -159,6 +173,7 @@ public class GUI implements ActionListener {
         mainFrame.setLayout(null);
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setVisible(true);
+
 
         mainFrame.add(adField);
         mainFrame.add(adLabel);
@@ -172,12 +187,11 @@ public class GUI implements ActionListener {
         mainFrame.add(akrabaLabel);
         mainFrame.add(başlık);
         mainFrame.add(addButton);
+        mainFrame.add(removeButton);
         mainFrame.add(cinsiyetBox);
         mainFrame.add(akrabaBox);
         mainFrame.add(FamilyTree);
         mainFrame.add(addPanel);
-
-
 
     }
 
@@ -188,6 +202,17 @@ public class GUI implements ActionListener {
 
 
     public void actionPerformed(ActionEvent e) {
+    if(e.getSource() == removeButton){
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) FamilyTree.getSelectionPath().getLastPathComponent();
+        if(selectedNode != parents && selectedNode != spouse && selectedNode != broSis && selectedNode != children){
+
+            DefaultTreeModel model = (DefaultTreeModel) FamilyTree.getModel();
+            model.removeNodeFromParent(selectedNode);
+            model.reload();
+    }
+    }
+
+
         if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 0)) {
             if (idField.getText().equals("")) {
                 JOptionPane idHata = new JOptionPane();
@@ -243,7 +268,7 @@ public class GUI implements ActionListener {
             }
                 }
 
-        if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 2) && (cinsiyetBox.getSelectedIndex() == 0)) {
+        if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 2)) {
 
             if (idField.getText().equals("")) {
                 JOptionPane idHata = new JOptionPane();
@@ -258,6 +283,9 @@ public class GUI implements ActionListener {
                 JOptionPane soyadHata = new JOptionPane();
                 soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
                 throw new StringIndexOutOfBoundsException("HATA");
+            } else if ((cinsiyetBox.getSelectedIndex() == 1)){
+                JOptionPane soyadHata = new JOptionPane();
+                soyadHata.showMessageDialog(null, "Cinsiyeti kontrol edin.");
             } else {
                 JOptionPane succes = new JOptionPane();
                 succes.showMessageDialog(null, "Bilgileriniz kaydedilmiştir.");
