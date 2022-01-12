@@ -134,10 +134,11 @@ public class Person{
       public void addChildren(Person perChildren, Person perPerson){
         perPerson.setMother(perChildren);
     }
+
     public void RelationMake(Person refPerson){
         System.out.println("Mother name "+refPerson.getMother().getName());
-        System.out.println("Mother name "+refPerson.getFather().getName());
-        System.out.println("Mother name "+refPerson.getSpouse().getName());
+        System.out.println("Father name "+refPerson.getFather().getName());
+        System.out.println("Spouse name "+refPerson.getSpouse().getName());
         System.out.println("Children name");
         for(int i=0; i<refPerson.children.size(); i++){
             System.out.println(children.get(i).getName());
