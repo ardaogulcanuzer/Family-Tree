@@ -24,9 +24,9 @@ public class GUI implements ActionListener {
     JLabel akrabaLabel;
     JButton addButton;
     JComboBox cinsiyetBox;
-    String[] cinsiyet = { "Kadın", "Erkek" };
+    String[] cinsiyet = {"Kadın", "Erkek"};
     JComboBox akrabaBox;
-    String[] akraba = { "Ben", "Baba", "Anne", "Kardeş", "Çocuk" };
+    String[] akraba = {"Ben", "Baba", "Anne", "Kardeş", "Çocuk"};
 
     JTree FamilyTree;
     DefaultMutableTreeNode reference;
@@ -36,8 +36,7 @@ public class GUI implements ActionListener {
     DefaultMutableTreeNode broSis;
 
 
-
-    GUI(){
+    GUI() {
         //Mainframe name.
         mainFrame = new JFrame("Family Tree");
 
@@ -51,32 +50,31 @@ public class GUI implements ActionListener {
         soyadField = new JTextField();
         doğumField = new JTextField();
         idField = new JTextField();
-        adField.setBounds(1670, 20, 200,25);
+        adField.setBounds(1670, 20, 200, 25);
         adLabel = new JLabel("Adı: ");
-        adLabel.setBounds(1510,20,50,30);
+        adLabel.setBounds(1510, 20, 50, 30);
         adLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
-        soyadField.setBounds(1670, 100, 200,25);
+        soyadField.setBounds(1670, 100, 200, 25);
         soyadLabel = new JLabel("Soyadı: ");
-        soyadLabel.setBounds(1510,100,90,30);
+        soyadLabel.setBounds(1510, 100, 90, 30);
         soyadLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
-        doğumField.setBounds(1670, 180, 200,25);
+        doğumField.setBounds(1670, 180, 200, 25);
         doğumLabel = new JLabel("Doğum Tarihi: ");
-        doğumLabel.setBounds(1510,180,160,30);
+        doğumLabel.setBounds(1510, 180, 160, 30);
         doğumLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
-        idField.setBounds(1670, 260, 200,25);
+        idField.setBounds(1670, 260, 200, 25);
         idLabel = new JLabel("ID: ");
-        idLabel.setBounds(1510,260,160,30);
+        idLabel.setBounds(1510, 260, 160, 30);
         idLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
         genderLabel = new JLabel("Cinsiyet: ");
-        genderLabel.setBounds(1510,400,160,30);
+        genderLabel.setBounds(1510, 400, 160, 30);
         genderLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
         akrabaLabel = new JLabel("Akraba: ");
-        akrabaLabel.setBounds(1510,500,160,30);
+        akrabaLabel.setBounds(1510, 500, 160, 30);
         akrabaLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
         başlık = new JLabel("Family Tree ");
-        başlık.setBounds(20,0,160,30);
+        başlık.setBounds(20, 0, 160, 30);
         başlık.setFont(new Font("Verdana", Font.PLAIN, 22));
-
 
 
         cinsiyetBox = new JComboBox(cinsiyet);
@@ -88,9 +86,8 @@ public class GUI implements ActionListener {
         akrabaBox.setBounds(1670, 500, 200, 30);
 
 
-
         addButton = new JButton("Add Person");
-        addButton.setBounds(1670,940,200,50);
+        addButton.setBounds(1670, 940, 200, 50);
         addButton.setFont(new Font("Verdana", Font.PLAIN, 18));
         addButton.addActionListener(this);
 
@@ -107,8 +104,6 @@ public class GUI implements ActionListener {
         reference.add(spouse);
         reference.add(broSis);
         reference.add(children);
-
-
 
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -142,23 +137,25 @@ public class GUI implements ActionListener {
     }
 
 
-     public void actionPerformed(ActionEvent e) {
-         if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 0)) {
-             DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(
-                     adField.getText() + " " + soyadField.getText());
-             // root = new DefaultMutableTreeNode(tempNode);
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 0)) {
 
-             // Changing the text of the root value
-             DefaultTreeModel model = (DefaultTreeModel) FamilyTree.getModel();
-             reference = (DefaultMutableTreeNode) model.getRoot();
-             reference.setUserObject(adField.getText() + " " + soyadField.getText() + idField.getText() + "(Kendisi)");
-             model.nodeChanged(reference);
+            // Changing the text of the root value
+            DefaultTreeModel model = (DefaultTreeModel)FamilyTree.getModel();
 
-             SwingUtilities.updateComponentTreeUI(mainFrame); // reload the firstPanel after every person add
+            reference.setUserObject(adField.getText() + " " + soyadField.getText() + idField.getText() + "(Kendisi)");
+            model.nodeChanged(reference);
+            SwingUtilities.updateComponentTreeUI(mainFrame); // reload the firstPanel after every person add
 
 
-         }
+        }
+        if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 1)) {
+            DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + "(Babası)");
+            parents.add(tempNode);
+            SwingUtilities.updateComponentTreeUI(mainFrame); // reload the firstPanel after every person add
 
-     }
-     }
+        }
+
+    }
+}
 
