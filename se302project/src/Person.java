@@ -10,9 +10,9 @@ public class Person{
     String name,surname;
     float ID,birthdate;
     String gender;
-
     Person father,mother,spouse;
     ArrayList<Person> children = new ArrayList<Person>();
+
 
     //getters and setters
     public String getName() {
@@ -35,22 +35,6 @@ public class Person{
         return gender;
     }
 
-    public Person getFather() {
-        return father;
-    }
-
-    public Person getMother() {
-        return mother;
-    }
-
-    public Person getSpouse() {
-        return spouse;
-    }
-
-    public ArrayList<Person> getChildren() {
-        return children;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -71,6 +55,22 @@ public class Person{
         this.gender = gender;
     }
 
+    public Person getFather() {
+        return father;
+    }
+
+    public Person getMother() {
+        return mother;
+    }
+
+    public Person getSpouse() {
+        return spouse;
+    }
+
+    public ArrayList<Person> getChildren() {
+        return children;
+    }
+
     public void setFather(Person father) {
         this.father = father;
     }
@@ -87,6 +87,7 @@ public class Person{
         this.children = children;
     }
 
+
     public Person(String name, String surname, float ID, float birthdate, String gender) {
         this.name = name;
         this.surname = surname;
@@ -95,43 +96,17 @@ public class Person{
         this.gender = gender;
     }
 
-    public Person(){
-        this.name = ("Empty");
-        this.surname = ("Empty");
-        this.ID = (0);
-        this.birthdate = (0);
-        this.gender = ("Empty");
 
-    }
-
-    public Person addPerson(){
-        String addName, addSurname, addGender;
-        float addID, addBirthdate;
-
-        System.out.println("Enter ID: ");
-        addID= input.nextInt();
-        System.out.println("Enter name: ");
-        addName= input.next();
-        System.out.println("Enter surname: ");
-        addSurname= input.next();
-        System.out.println("Enter birthdate: ");
-        addBirthdate= input.nextFloat();
-        System.out.println("Enter gender: ");
-        addGender= input.next();
-
-        return new Person (addName,addSurname,addID,addBirthdate,addGender);
-    }
-
-      public void addMother(Person perMother, Person perPerson){
+    public void addMother(Person perMother, Person perPerson){
         perPerson.setMother(perMother);
-      }
-      public void addFather(Person perFather, Person perPerson){
+    }
+    public void addFather(Person perFather, Person perPerson){
         perPerson.setMother(perFather);
     }
-      public void addSpouse(Person perSpouse, Person perPerson){
+    public void addSpouse(Person perSpouse, Person perPerson){
         perPerson.setMother(perSpouse);
     }
-      public void addChildren(Person perChildren, Person perPerson){
+    public void addChildren(Person perChildren, Person perPerson){
         perPerson.setMother(perChildren);
     }
 
@@ -144,13 +119,6 @@ public class Person{
             System.out.println(children.get(i).getName());
         }
     }
-
-
-
-
-
-
-
-
-
 }
+
+

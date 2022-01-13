@@ -2,22 +2,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Family {
-    public static void main (String[] args){
-        Scanner input = new Scanner(System.in);
+    public static void main(String[] args) {
+        Person myPer = new Person("Doruk","Sayın", 12, 2001, "Male");
+        Person myMom = new Person("Hülya", "Sayın", 13, 1974, "Female");
 
-        Person person = new Person();
-        ArrayList<Person> people = new ArrayList<Person>();
-        person = person.addPerson();
-        people.add(person);
-
-
-
-        System.out.println(person.getName() + " " + person.getSurname());
-
-
+        myPer.addMother(myMom,myPer);
+        System.out.println(myPer.getMother().getName());
+        System.out.println(myPer.getMother().getSurname());
+        System.out.println(myPer.getMother().getID());
 
     }
-
 
 
 }

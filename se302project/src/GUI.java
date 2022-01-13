@@ -1,16 +1,12 @@
-package UI;
-
-import javax.management.DescriptorAccess;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.security.Key;
-import java.util.ArrayList;
+import java.io.File;
 
-public class GUI implements ActionListener {
+public class GUI extends Component implements ActionListener {
 
     JFrame mainFrame;
     JFrame helpFrame;
@@ -35,7 +31,8 @@ public class GUI implements ActionListener {
 
     JMenuBar menuBar;
     JMenu file,edit,help;
-    JMenuItem exit,save,about;
+    JMenuItem exit,save,about,open;
+
 
     JComboBox cinsiyetBox;
     String[] cinsiyet = {"Kadın", "Erkek"};
@@ -65,6 +62,16 @@ public class GUI implements ActionListener {
         about = new JMenuItem("About");
         about.addActionListener(this);
         about.setFont(new Font("Arial", Font.BOLD, 13));
+        save = new JMenuItem("Save");
+        save.addActionListener(this);
+        save.setFont(new Font("Arial", Font.BOLD, 13));
+        open = new JMenuItem("Open");
+        open.addActionListener(this);
+        open.setFont(new Font("Arial", Font.BOLD, 13));
+        exit = new JMenuItem("Exit");
+        exit.addActionListener(this);
+        exit.setFont(new Font("Arial", Font.BOLD, 13));
+
 
         //Addpanel settings.
         addPanel = new JPanel();
@@ -129,7 +136,7 @@ public class GUI implements ActionListener {
         FamilyTree.setBounds(20, 50, 1300, 900);
 
         parents = new DefaultMutableTreeNode("Ebeveynler");
-        spouse = new DefaultMutableTreeNode("Eşler");
+        spouse = new DefaultMutableTreeNode("Eş");
         children = new DefaultMutableTreeNode("Çocuklar");
         broSis = new DefaultMutableTreeNode("Kardeşler");
         mother = new DefaultMutableTreeNode("Anne");
@@ -184,10 +191,11 @@ public class GUI implements ActionListener {
                 " Doldurduktan sonra Akraba kısmından BEN kısmını seçip KİŞİ EKLE'ye bastığınız zaman solda yukarıda kendinizi göreceksiniz.<br><br>" +
                 " Kendinizi ekledikten sonra aile soyağacına akraba kısmından istediğiniz kişiyi ekleyebilirsiniz. Eklediğiniz kişiler aynı" +
                 " prosedürler uygulandıktan sonra ait oldukları klasörlerin içine dolmaya başlayacaktır. Klasörlere tıklayarak eklenen kişiyi" +
-                " kolaylıkla görebilirsiniz.<br><br>Ekstradan soyağacından ANNE yazısının üstüne tıklayıp KARDEŞ eklerseniz annenizin kardeşini" +
-                "ANNE klasörünün altında görebilirsiniz. Aynı durum BABA içinde geçerlidir.<br><br> ~Family Tree~ <html>");
+                " kolaylıkla görebilirsiniz.<br><br>Ekstradan soyağacından ANNE yazısının üstüne tıklayıp KARDEŞ,ANNE,BABA eklerseniz amcanızı, halanızı, dedenizi vb." +
+                " aile üyelerinizi ANNE klasörünün altında görebilirsiniz. Aynı durum BABA içinde geçerlidir. EŞ seçili ise anne ve baba ekleyebilirsiniz." +
+                " Eklediğiniz anne ve baba EŞ'in altında gözükecektir.<br><br> ~Family Tree~ <html>");
 
-        helpLabel.setBounds(10, 0, 370,320);
+        helpLabel.setBounds(10, 0, 370,340);
         helpFrame.add(helpLabel);
 
         reference.add(parents);
@@ -209,6 +217,9 @@ public class GUI implements ActionListener {
         menuBar.add(edit);
         menuBar.add(help);
         help.add(about);
+        file.add(save);
+        file.add(open);
+        file.add(exit);
         mainFrame.add(başlık);
         mainFrame.add(adField);
         mainFrame.add(adLabel);
@@ -227,7 +238,6 @@ public class GUI implements ActionListener {
         mainFrame.add(FamilyTree);
         mainFrame.add(addPanel);
 
-
     }
     public void resetField(){
         adField.setText("");
@@ -237,6 +247,27 @@ public class GUI implements ActionListener {
         cinsiyetBox.setSelectedItem(0);
         akrabaBox.setSelectedItem(0);
     }
+    public void exceptionHandler() {
+
+        if (idField.getText().equals("")) {
+            JOptionPane idHata = new JOptionPane();
+            idHata.showMessageDialog(null, "ID girilmedi.");
+            throw new StringIndexOutOfBoundsException("HATA");
+
+        } else if (adField.getText().equals("")) {
+            JOptionPane kişiHata = new JOptionPane();
+            kişiHata.showMessageDialog(null, "Kişi adı girilmedi.");
+            throw new StringIndexOutOfBoundsException("HATA");
+        } else if (soyadField.getText().equals("")) {
+            JOptionPane soyadHata = new JOptionPane();
+            soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
+            throw new StringIndexOutOfBoundsException("HATA");
+        } else {
+            JOptionPane success = new JOptionPane();
+            success.showMessageDialog(null, "Bilgileriniz kaydedilmiştir.");
+
+        }
+    }
 
 
 
@@ -245,8 +276,10 @@ public class GUI implements ActionListener {
         new GUI();
     }
 
-
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == exit){
+            System.exit(0);
+        }
 
 
         if (e.getSource() == about) {
@@ -266,22 +299,9 @@ public class GUI implements ActionListener {
                 model.reload();
             }
         }
-
+        //Referans
         if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 0)) {
-            if (idField.getText().equals("")) {
-                JOptionPane idHata = new JOptionPane();
-                idHata.showMessageDialog(null, "ID girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-
-            } else if (adField.getText().equals("")) {
-                JOptionPane kişiHata = new JOptionPane();
-                kişiHata.showMessageDialog(null, "Kişi adı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if (soyadField.getText().equals("")) {
-                JOptionPane soyadHata = new JOptionPane();
-                soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else {
+            exceptionHandler();
                 DefaultTreeModel model = (DefaultTreeModel) FamilyTree.getModel();
 
                 reference.setUserObject(adField.getText() + " " + soyadField.getText() + " ID:" + idField.getText() + " (Referans) ");
@@ -291,9 +311,9 @@ public class GUI implements ActionListener {
 
 
             }
-        }
+
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) FamilyTree.getSelectionPath().getLastPathComponent();
-        if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 1)) {
+        if  (selectedNode != spouse && e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 1) && selectedNode != father && selectedNode != mother ) {
             if (idField.getText().equals("")) {
                 JOptionPane idHata = new JOptionPane();
                 idHata.showMessageDialog(null, "ID girilmedi.");
@@ -307,12 +327,14 @@ public class GUI implements ActionListener {
                 JOptionPane soyadHata = new JOptionPane();
                 soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
                 throw new StringIndexOutOfBoundsException("HATA");
-            } else if ((cinsiyetBox.getSelectedIndex() == 0)) {
+
+            } else if (cinsiyetBox.getSelectedIndex() == 0) {
                 JOptionPane soyadHata = new JOptionPane();
                 soyadHata.showMessageDialog(null, "Cinsiyeti kontrol edin.");
+                throw new StringIndexOutOfBoundsException("HATA");
             } else {
-                JOptionPane success = new JOptionPane();
-                success.showMessageDialog(null, "Bilgileriniz kaydedilmiştir.");
+                JOptionPane succes = new JOptionPane();
+                succes.showMessageDialog(null, "Bilgileriniz kaydedilmiştir.");
 
                 father.setUserObject(adField.getText() + " " + soyadField.getText() + " (Baba) ");
                 parents.add(father);
@@ -321,58 +343,49 @@ public class GUI implements ActionListener {
 
             }
         }
-        if (e.getSource() == addButton && selectedNode == father && cinsiyetBox.getSelectedIndex() == 1 && akrabaBox.getSelectedIndex() == 4) {
-            if (idField.getText().equals("")) {
-                JOptionPane idHata = new JOptionPane();
-                idHata.showMessageDialog(null, "ID girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if (adField.getText().equals("")) {
-                JOptionPane kişiHata = new JOptionPane();
-                kişiHata.showMessageDialog(null, "Kişi adı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if (soyadField.getText().equals("")) {
-                JOptionPane soyadHata = new JOptionPane();
-                soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if ((cinsiyetBox.getSelectedIndex() == 0)) {
-                JOptionPane soyadHata = new JOptionPane();
-                soyadHata.showMessageDialog(null, "Cinsiyeti kontrol edin.");
-            } else {
+        if (cinsiyetBox.getSelectedIndex() == 1 && e.getSource() == addButton && selectedNode == father  && akrabaBox.getSelectedIndex() == 1) {
+            exceptionHandler();
+
+
+                DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Dede) ");
+                father.add(tempNode);
+                SwingUtilities.updateComponentTreeUI(mainFrame);
+                resetField();
+            }
+
+        if (e.getSource() == addButton && selectedNode == father && cinsiyetBox.getSelectedIndex() == 0 && akrabaBox.getSelectedIndex() == 2) {
+            exceptionHandler();
+
+
+                DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Babaanne) ");
+                father.add(tempNode);
+                SwingUtilities.updateComponentTreeUI(mainFrame);
+                resetField();
+            }
+
+        if (e.getSource() == addButton && selectedNode == father && akrabaBox.getSelectedIndex() == 4 && cinsiyetBox.getSelectedIndex() == 1 ) {
+            exceptionHandler();
+
 
                 DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Amca) ");
                 father.add(tempNode);
                 SwingUtilities.updateComponentTreeUI(mainFrame);
                 resetField();
             }
-        }
-        if (e.getSource() == addButton && selectedNode == father && cinsiyetBox.getSelectedIndex() == 0 && akrabaBox.getSelectedIndex() == 4) {
 
-            if (idField.getText().equals("")) {
-                JOptionPane idHata = new JOptionPane();
-                idHata.showMessageDialog(null, "ID girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
+        if (selectedNode == father && akrabaBox.getSelectedIndex() == 4 && e.getSource() == addButton && cinsiyetBox.getSelectedIndex() == 0) {
+            exceptionHandler();
 
-            } else if (adField.getText().equals("")) {
-                JOptionPane kişiHata = new JOptionPane();
-                kişiHata.showMessageDialog(null, "Kişi adı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if (soyadField.getText().equals("")) {
-                JOptionPane soyadHata = new JOptionPane();
-                soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if ((cinsiyetBox.getSelectedIndex() == 0)) {
-                JOptionPane soyadHata = new JOptionPane();
-                soyadHata.showMessageDialog(null, "Cinsiyeti kontrol edin.");
-            } else {
+
+
                     DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Hala) ");
                     father.add(tempNode);
                     SwingUtilities.updateComponentTreeUI(mainFrame);
                     resetField();
             }
-        }
 
-            if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 2)) {
 
+            if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 2) && selectedNode != mother && selectedNode != spouse && selectedNode != father) {
                 if (idField.getText().equals("")) {
                     JOptionPane idHata = new JOptionPane();
                     idHata.showMessageDialog(null, "ID girilmedi.");
@@ -386,12 +399,15 @@ public class GUI implements ActionListener {
                     JOptionPane soyadHata = new JOptionPane();
                     soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
                     throw new StringIndexOutOfBoundsException("HATA");
-                } else if ((cinsiyetBox.getSelectedIndex() == 1)) {
+
+                } else if (cinsiyetBox.getSelectedIndex() == 1) {
                     JOptionPane soyadHata = new JOptionPane();
                     soyadHata.showMessageDialog(null, "Cinsiyeti kontrol edin.");
+                    throw new StringIndexOutOfBoundsException("HATA");
                 } else {
                     JOptionPane succes = new JOptionPane();
                     succes.showMessageDialog(null, "Bilgileriniz kaydedilmiştir.");
+
 
                     mother.setUserObject(adField.getText() + " " + soyadField.getText() + " (Anne) ");
                     parents.add(mother);
@@ -399,56 +415,48 @@ public class GUI implements ActionListener {
                     resetField();
                 }
             }
-        if (e.getSource() == addButton && selectedNode == mother && cinsiyetBox.getSelectedIndex() == 1 && akrabaBox.getSelectedIndex() == 4) {
-            if (idField.getText().equals("")) {
-                JOptionPane idHata = new JOptionPane();
-                idHata.showMessageDialog(null, "ID girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
 
-            } else if (adField.getText().equals("")) {
-                JOptionPane kişiHata = new JOptionPane();
-                kişiHata.showMessageDialog(null, "Kişi adı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if (soyadField.getText().equals("")) {
-                JOptionPane soyadHata = new JOptionPane();
-                soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if ((cinsiyetBox.getSelectedIndex() == 0)) {
-                JOptionPane soyadHata = new JOptionPane();
-                soyadHata.showMessageDialog(null, "Cinsiyeti kontrol edin.");
-            } else {
+        if (e.getSource() == addButton && selectedNode == mother && cinsiyetBox.getSelectedIndex() == 1 && akrabaBox.getSelectedIndex() == 1) {
+            exceptionHandler();
 
-                DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Dayı) ");
-                mother.add(tempNode);
-                SwingUtilities.updateComponentTreeUI(mainFrame);
-                resetField();
+
+            DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Dede) ");
+            mother.add(tempNode);
+            SwingUtilities.updateComponentTreeUI(mainFrame);
+            resetField();
             }
-        }
-        if (e.getSource() == addButton && selectedNode == mother && cinsiyetBox.getSelectedIndex() == 0 && akrabaBox.getSelectedIndex() == 4) {
-            if (idField.getText().equals("")) {
-                JOptionPane idHata = new JOptionPane();
-                idHata.showMessageDialog(null, "ID girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
 
-            } else if (adField.getText().equals("")) {
-                JOptionPane kişiHata = new JOptionPane();
-                kişiHata.showMessageDialog(null, "Kişi adı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if (soyadField.getText().equals("")) {
-                JOptionPane soyadHata = new JOptionPane();
-                soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
-                throw new StringIndexOutOfBoundsException("HATA");
-            } else if ((cinsiyetBox.getSelectedIndex() == 0)) {
-                JOptionPane soyadHata = new JOptionPane();
-                soyadHata.showMessageDialog(null, "Cinsiyeti kontrol edin.");
-            } else {
-                DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Hala) ");
-                mother.add(tempNode);
-                SwingUtilities.updateComponentTreeUI(mainFrame);
-                resetField();
+        if (e.getSource() == addButton && selectedNode == mother && cinsiyetBox.getSelectedIndex() == 0 && akrabaBox.getSelectedIndex() == 2) {
+            exceptionHandler();
+
+
+            DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Anneanne) ");
+            mother.add(tempNode);
+            SwingUtilities.updateComponentTreeUI(mainFrame);
+            resetField();
             }
-        }
 
+        if (e.getSource() == addButton && selectedNode == mother && akrabaBox.getSelectedIndex() == 4 && cinsiyetBox.getSelectedIndex() == 1) {
+            exceptionHandler();
+
+
+            DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Dayı) ");
+            mother.add(tempNode);
+            SwingUtilities.updateComponentTreeUI(mainFrame);
+            resetField();
+            }
+
+        if (e.getSource() == addButton && selectedNode == mother && akrabaBox.getSelectedIndex() == 4 && cinsiyetBox.getSelectedIndex() == 0) {
+            exceptionHandler();
+
+
+            DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Teyze) ");
+            mother.add(tempNode);
+            SwingUtilities.updateComponentTreeUI(mainFrame);
+            resetField();
+            }
+
+        //Eş
         if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 3)) {
 
             if (idField.getText().equals("")) {
@@ -465,25 +473,38 @@ public class GUI implements ActionListener {
                 soyadHata.showMessageDialog(null, "Soyadı girilmedi.");
                 throw new StringIndexOutOfBoundsException("HATA");
 
-            } else if (selectedNode == mother || selectedNode == father){
+            } else if (selectedNode == mother || selectedNode == father) {
                 JOptionPane soyadHata = new JOptionPane();
                 soyadHata.showMessageDialog(null, "Anne veya Baba seçiliyken ekleme yapamazsınız.");
                 throw new StringIndexOutOfBoundsException("HATA");
-            }
-            else {
+            } else {
                 JOptionPane succes = new JOptionPane();
                 succes.showMessageDialog(null, "Bilgileriniz kaydedilmiştir.");
 
-                DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Eş) ");
-                spouse.add(tempNode);
-
+                spouse.setUserObject(adField.getText() + " " + soyadField.getText() + " (Eş) ");
                 SwingUtilities.updateComponentTreeUI(mainFrame);
                 resetField();
 
-
             }
         }
+            if(e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 1) && cinsiyetBox.getSelectedIndex() == 1 && selectedNode == spouse){
+                exceptionHandler();
+                DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Kayınpeder) ");
+                spouse.add(tempNode);
+                SwingUtilities.updateComponentTreeUI(mainFrame);
+                resetField();
 
+            }
+            if(e.getSource() == addButton && selectedNode == spouse && cinsiyetBox.getSelectedIndex() == 0 && akrabaBox.getSelectedIndex() == 2){
+                exceptionHandler();
+                DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(adField.getText() + " " + soyadField.getText() + " (Kayınvalide) ");
+                spouse.add(tempNode);
+                SwingUtilities.updateComponentTreeUI(mainFrame);
+                resetField();
+
+            }
+
+        //Kız Kardeş
         if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 4) && (cinsiyetBox.getSelectedIndex() == 0) && selectedNode != mother && selectedNode != father){
 
             if (idField.getText().equals("")) {
@@ -509,6 +530,7 @@ public class GUI implements ActionListener {
                 resetField();
             }
         }
+        // Erkek Kardeş
         else if(e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 4) && (cinsiyetBox.getSelectedIndex() == 1) && selectedNode != mother && selectedNode != father){
             if (idField.getText().equals("")) {
                 JOptionPane idHata = new JOptionPane();
@@ -534,6 +556,7 @@ public class GUI implements ActionListener {
             }
 
         }
+        //Kız Çocuk
         if (e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 5) && (cinsiyetBox.getSelectedIndex() == 0))  {
 
             if (idField.getText().equals("")) {
@@ -563,8 +586,8 @@ public class GUI implements ActionListener {
                 SwingUtilities.updateComponentTreeUI(mainFrame);
                 resetField();
             }
-
         }
+        //Erkek Çocuk
         else if(e.getSource() == addButton && (akrabaBox.getSelectedIndex() == 5) && (cinsiyetBox.getSelectedIndex() == 1)){
             if (idField.getText().equals("")) {
                 JOptionPane idHata = new JOptionPane();
@@ -599,7 +622,9 @@ public class GUI implements ActionListener {
 
 
         }
+    }
 
-}
+
+
 
 
