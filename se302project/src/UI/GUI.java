@@ -185,7 +185,7 @@ public class GUI implements ActionListener {
                 " Kendinizi ekledikten sonra aile soyağacına akraba kısmından istediğiniz kişiyi ekleyebilirsiniz. Eklediğiniz kişiler aynı" +
                 " prosedürler uygulandıktan sonra ait oldukları klasörlerin içine dolmaya başlayacaktır. Klasörlere tıklayarak eklenen kişiyi" +
                 " kolaylıkla görebilirsiniz.<br><br>Ekstradan soyağacından ANNE yazısının üstüne tıklayıp KARDEŞ eklerseniz annenizin kardeşini" +
-                "ANNE klasörünün altında görebilirsiniz. Aynı durum BABA içinde geçerlidir.<br><br> ~Family Tree~<html>");
+                "ANNE klasörünün altında görebilirsiniz. Aynı durum BABA içinde geçerlidir.<br><br> ~Family Tree~ <html>");
 
         helpLabel.setBounds(10, 0, 370,320);
         helpFrame.add(helpLabel);
