@@ -5,6 +5,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.security.Key;
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class GUI implements ActionListener {
 
     JMenuBar menuBar;
     JMenu file,edit,help;
+    JMenuItem exit,save,about;
 
     JComboBox cinsiyetBox;
     String[] cinsiyet = {"Kadın", "Erkek"};
@@ -54,6 +56,9 @@ public class GUI implements ActionListener {
         edit.setFont(new Font("Arial", Font.BOLD, 13));
         help = new JMenu("Help");
         help.setFont(new Font("Arial", Font.BOLD, 13));
+        about = new JMenuItem("About");
+        about.addActionListener(this);
+        about.setFont(new Font("Arial", Font.BOLD, 13));
 
         //Addpanel settings.
         addPanel = new JPanel();
@@ -181,6 +186,7 @@ public class GUI implements ActionListener {
         menuBar.add(file);
         menuBar.add(edit);
         menuBar.add(help);
+        help.add(about);
         mainFrame.add(başlık);
         mainFrame.add(adField);
         mainFrame.add(adLabel);
@@ -219,6 +225,13 @@ public class GUI implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
+        if(e.getSource() == about){
+            try{
+                Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler "+"C:\\Users\\doruk\\Documents\\GitHub\\SE-302-PROJECT\\Text\\about.txt");
+            }
+            catch (Exception txt){
+            }
+        }
 
         if(e.getSource() == removeButton){
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) FamilyTree.getSelectionPath().getLastPathComponent();
