@@ -10,6 +10,7 @@ public class Person{
     String name,surname;
     float ID,birthdate;
     String gender;
+
     Person father,mother,spouse;
     ArrayList<Person> children = new ArrayList<Person>();
 
@@ -87,7 +88,7 @@ public class Person{
         this.children = children;
     }
 
-
+    //Constructor
     public Person(String name, String surname, float ID, float birthdate, String gender) {
         this.name = name;
         this.surname = surname;
@@ -96,7 +97,7 @@ public class Person{
         this.gender = gender;
     }
 
-
+    //Add family members for refPerson.
     public void addMother(Person perMother, Person perPerson){
         perPerson.setMother(perMother);
     }
@@ -110,6 +111,7 @@ public class Person{
         perPerson.setMother(perChildren);
     }
 
+    //Relation make for refPerson.
     public void RelationMake(Person refPerson){
         System.out.println("Mother name "+refPerson.getMother().getName());
         System.out.println("Father name "+refPerson.getFather().getName());
