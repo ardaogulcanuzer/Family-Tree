@@ -37,7 +37,7 @@ public class GUI extends Component implements ActionListener {
     JComboBox cinsiyetBox;
     String[] cinsiyet = {"Kadın", "Erkek"};
     JComboBox akrabaBox;
-    String[] akraba = {"Ben", "Baba", "Anne", "Eş", "Kardeş", " Çocuk"};
+    String[] akraba = {"Ben", "Baba", "Anne", "Eş", "Kardeş", "Çocuk"};
 
     JTree FamilyTree;
     DefaultMutableTreeNode reference;
