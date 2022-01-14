@@ -75,7 +75,7 @@ public class GUI extends Component implements ActionListener {
 
         //Addpanel settings.
         addPanel = new JPanel();
-        addPanel.setBounds(1500, 20, 400, 960);
+        addPanel.setBounds(750, 20, 550, 680);
         addPanel.setBackground(Color.lightGray);
 
         //All field settings.
@@ -86,54 +86,54 @@ public class GUI extends Component implements ActionListener {
         soyadField = new JTextField();
         doğumField = new JTextField();
         idField = new JTextField();
-        adField.setBounds(1670, 50, 200, 25);
+        adField.setBounds(1000, 50, 250, 25);
         adLabel = new JLabel("Adı: ");
-        adLabel.setBounds(1510, 50, 50, 30);
+        adLabel.setBounds(800, 50, 50, 30);
         adLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
-        soyadField.setBounds(1670, 130, 200, 25);
+        soyadField.setBounds(1000, 130, 250, 25);
         soyadLabel = new JLabel("Soyadı: ");
-        soyadLabel.setBounds(1510, 130, 90, 30);
+        soyadLabel.setBounds(800, 130, 90, 30);
         soyadLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
-        doğumField.setBounds(1670, 210, 200, 25);
+        doğumField.setBounds(1000, 210, 250, 25);
         doğumLabel = new JLabel("Doğum Yılı: ");
-        doğumLabel.setBounds(1510, 210, 160, 30);
+        doğumLabel.setBounds(800, 210, 160, 30);
         doğumLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
-        idField.setBounds(1670, 290, 200, 25);
+        idField.setBounds(1000, 290, 250, 25);
         idLabel = new JLabel("ID: ");
-        idLabel.setBounds(1510, 290, 160, 30);
+        idLabel.setBounds(800, 290, 160, 30);
         idLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
         genderLabel = new JLabel("Cinsiyet: ");
-        genderLabel.setBounds(1510, 400, 160, 30);
+        genderLabel.setBounds(800, 400, 160, 30);
         genderLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
         akrabaLabel = new JLabel("Akraba: ");
-        akrabaLabel.setBounds(1510, 500, 160, 30);
+        akrabaLabel.setBounds(800, 500, 160, 30);
         akrabaLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 
 
 
         cinsiyetBox = new JComboBox(cinsiyet);
         cinsiyetBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-        cinsiyetBox.setBounds(1670, 400, 200, 25);
+        cinsiyetBox.setBounds(1000, 400, 200, 25);
 
         akrabaBox = new JComboBox(akraba);
         akrabaBox.setFont(new Font("Verdana", Font.PLAIN, 18));
-        akrabaBox.setBounds(1670, 500, 200, 30);
+        akrabaBox.setBounds(1000, 500, 200, 30);
 
 
         addButton = new JButton("Kişi Ekle");
-        addButton.setBounds(1510, 910, 180, 50);
+        addButton.setBounds(800, 630, 180, 50);
         addButton.setFont(new Font("Verdana", Font.PLAIN, 18));
         addButton.addActionListener(this);
 
         removeButton = new JButton("Kişi Kaldır");
-        removeButton.setBounds(1710, 910, 180, 50);
+        removeButton.setBounds(1070, 630, 180, 50);
         removeButton.setFont(new Font("Verdana", Font.PLAIN, 18));
         removeButton.addActionListener(this);
 
 
         reference = new DefaultMutableTreeNode("Reference");
         FamilyTree = new JTree(reference);
-        FamilyTree.setBounds(20, 50, 1300, 900);
+        FamilyTree.setBounds(20, 50, 500, 650);
 
         parents = new DefaultMutableTreeNode("Ebeveynler");
         spouse = new DefaultMutableTreeNode("Eş");
@@ -209,7 +209,7 @@ public class GUI extends Component implements ActionListener {
         mainFrame.setJMenuBar(menuBar);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(null);
-        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        mainFrame.setSize(1366 , 768);
         mainFrame.setVisible(true);
 
 
